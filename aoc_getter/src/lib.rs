@@ -15,7 +15,11 @@ pub mod aoc {
     impl AocConfig {
         /// Create a new AocConfig from environment variables
         pub fn new() -> Result<Self> {
-            dotenv::dotenv().ok();
+            let dotenv_path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+                .parent()
+                .unwrap()
+                .join("aoc_getter/.env");
+            dotenv::from_path(dotenv_path).ok();
 
             Ok(Self {
                 year: std::env::var("AOC_YEAR")
