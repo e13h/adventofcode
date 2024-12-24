@@ -72,4 +72,10 @@ fn main() {
     let (col1, col2) = parse_input(input).unwrap();
     let col1 = merge_sort(col1);
     let col2 = merge_sort(col2);
+    assert_eq!(col1.len(), col2.len());
+    let mut total_distance = 0;
+    for n in 0..col1.len() {
+        total_distance += (col1[n] - col2[n]).abs();
+    }
+    println!("total distance of two lists: {}", total_distance);
 }
