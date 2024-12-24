@@ -67,24 +67,9 @@ fn merge_sort(input_array: Vec<i32>) -> Vec<i32> {
     merge(left, right)
 }
 
-fn verify_sorted(input: Vec<i32>) -> bool {
-    let mut prev = 0;
-    for curr in input {
-        if prev > curr {
-            return false
-        }
-        prev = curr
-    }
-    return true
-}
-
 fn main() {
     let input = get_aoc_puzzle_input(1).unwrap();
     let (col1, col2) = parse_input(input).unwrap();
-    println!("sorted? {}", verify_sorted(col1.clone()));
-    println!("sorted? {}", verify_sorted(col2.clone()));
     let col1 = merge_sort(col1);
     let col2 = merge_sort(col2);
-    println!("sorted? {}", verify_sorted(col1));
-    println!("sorted? {}", verify_sorted(col2));
 }
