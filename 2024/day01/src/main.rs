@@ -45,15 +45,8 @@ fn parse_input(puzzle_input: String) -> Result<(Vec<i32>, Vec<i32>), String> {
 
 fn main() {
     println!("Hello, world!");
-    match get_aoc_puzzle_input(1) {
-        Ok(input) => {
-            let (col1, col2) = parse_input(input).unwrap();
-            println!("{:#?}", &col1[0..5]);
-            println!("{:#?}", &col2[0..5]);
-            // merge_sort(parse_input(input).unwrap());
-        }
-        Err(e) => {
-            eprintln!("Error: {}", e);
-        }
-    }
+    let input = get_aoc_puzzle_input(1).unwrap();
+    let (col1, col2) = parse_input(input).unwrap();
+    println!("{:#?}", &col1[0..5]);
+    println!("{:#?}", &col2[0..5]);
 }
