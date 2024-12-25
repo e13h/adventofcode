@@ -67,15 +67,19 @@ fn merge_sort(input_array: Vec<i32>) -> Vec<i32> {
     merge(left, right)
 }
 
+fn get_distance(vec1: Vec<i32>, vec2: Vec<i32>) -> i32 {
+    assert_eq!(vec1.len(), vec2.len());
+    let mut total_distance = 0;
+    for n in 0..vec1.len() {
+        total_distance += (vec1[n] - vec2[n]).abs();
+    }
+    total_distance
+}
+
 fn main() {
     let input = get_aoc_puzzle_input(1).unwrap();
     let (col1, col2) = parse_input(input).unwrap();
     let col1 = merge_sort(col1);
     let col2 = merge_sort(col2);
-    assert_eq!(col1.len(), col2.len());
-    let mut total_distance = 0;
-    for n in 0..col1.len() {
-        total_distance += (col1[n] - col2[n]).abs();
-    }
-    println!("total distance of two lists: {}", total_distance);
+    println!("total distance of two lists: {}", get_distance(col1, col2));
 }
