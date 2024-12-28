@@ -1,6 +1,7 @@
 use aoc_getter::aoc::get_aoc_puzzle_input;
 use std::result::Result;
 use std::collections::VecDeque;
+use std::collections::HashMap;
 
 fn parse_input(puzzle_input: String) -> Result<(Vec<i32>, Vec<i32>), String> {
     let mut col1 = Vec::new();
@@ -76,10 +77,29 @@ fn get_distance(vec1: Vec<i32>, vec2: Vec<i32>) -> i32 {
     total_distance
 }
 
+fn get_similarity_score(vec1: Vec<i32>, vec2: Vec<i32>) -> i32 {
+    let mut lookup: HashMap<i32, i32> = HashMap::new();
+    for value in vec2 {
+        if let Some(count) = lookup.get_mut(&value) {
+            *count += 1;
+        } else {
+            lookup.insert(value, 1);
+        }
+    }
+    let mut similarity = 0;
+    for value in vec1 {
+        if let Some(count) = lookup.get(&value) {
+            similarity += value * count
+        }
+    }
+    similarity
+}
+
 fn main() {
     let input = get_aoc_puzzle_input(1).unwrap();
     let (col1, col2) = parse_input(input).unwrap();
     let col1 = merge_sort(col1);
     let col2 = merge_sort(col2);
-    println!("total distance of two lists: {}", get_distance(col1, col2));
+    println!("total distance of two lists: {}", get_distance(col1.clone(), col2.clone()));
+    println!("similarity score of two lists: {}", get_similarity_score(col1, col2));
 }
