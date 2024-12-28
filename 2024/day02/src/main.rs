@@ -1,13 +1,16 @@
 use aoc_getter::aoc::get_aoc_puzzle_input;
+use std::num::ParseIntError;
 use std::result::Result;
 
-fn parse_input(puzzle_input: String) -> Result<Vec<Vec<i32>>, String> {
-    let mut result = Vec::new();
-    for line in puzzle_input.lines() {
-        let mut report = Vec::new();
-        result.push(report);
-    }
-    Ok(result)
+fn parse_input(puzzle_input: String) -> Result<Vec<Vec<i32>>, ParseIntError> {
+    puzzle_input
+        .lines()
+        .map(|line| {
+            line.split(" ")
+                .map(|value| value.trim().parse::<i32>())
+                .collect()
+        })
+        .collect()
 }
 
 fn main() {
