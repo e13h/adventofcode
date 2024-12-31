@@ -13,11 +13,11 @@ fn parse_input(puzzle_input: String) -> Result<Vec<Vec<i32>>, ParseIntError> {
         .collect()
 }
 
-fn is_strictly_increasing(vec: &[i32], max_step: Option<i32>) -> bool {
+fn is_monotonic(comparison: impl Fn(i32, i32) -> bool, vec: &[i32], max_step: Option<i32>) -> bool {
     let max_step = max_step.unwrap_or(i32::MAX);
     let mut prev = i32::MIN;
     for (i, value) in vec.into_iter().enumerate() {
-        if i > 0 && (*value <= prev || ((*value - prev).abs() > max_step)) {
+        if i > 0 && (comparison(*value, prev) || ((*value - prev).abs() > max_step)) {
             return false
         }
         prev = *value;
@@ -25,16 +25,12 @@ fn is_strictly_increasing(vec: &[i32], max_step: Option<i32>) -> bool {
     return true
 }
 
+fn is_strictly_increasing(vec: &[i32], max_step: Option<i32>) -> bool {
+    is_monotonic(|a, b| a <= b, vec, max_step)
+}
+
 fn is_strictly_decreasing(vec: &[i32], max_step: Option<i32>) -> bool {
-    let max_step = max_step.unwrap_or(i32::MAX);
-    let mut prev = i32::MAX;
-    for (i, value) in vec.into_iter().enumerate() {
-        if i > 0 && (*value >= prev || ((*value - prev).abs() > max_step)) {
-            return false
-        }
-        prev = *value;
-    }
-    return true
+    is_monotonic(|a, b| a >= b, vec, max_step)
 }
 
 fn report_is_safe(report: &[i32]) -> bool {
