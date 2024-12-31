@@ -16,7 +16,7 @@ fn parse_input(puzzle_input: String) -> Result<Vec<Vec<i32>>, ParseIntError> {
 fn is_monotonic(comparison: impl Fn(i32, i32) -> bool, vec: &[i32], max_step: Option<i32>) -> bool {
     let max_step = max_step.unwrap_or(i32::MAX);
     let mut prev = i32::MIN;
-    for (i, &value) in vec.into_iter().enumerate() {
+    for (i, &value) in vec.iter().enumerate() {
         if i > 0 && (comparison(value, prev) || ((value - prev).abs() > max_step)) {
             return false
         }
