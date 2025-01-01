@@ -1,7 +1,7 @@
 use aoc_getter::aoc::get_aoc_puzzle_input;
-use std::result::Result;
-use std::collections::VecDeque;
 use std::collections::HashMap;
+use std::collections::VecDeque;
+use std::result::Result;
 
 fn parse_input(puzzle_input: String) -> Result<(Vec<i32>, Vec<i32>), String> {
     let mut col1 = Vec::new();
@@ -100,6 +100,12 @@ fn main() {
     let (col1, col2) = parse_input(input).unwrap();
     let col1 = merge_sort(col1);
     let col2 = merge_sort(col2);
-    println!("total distance of two lists: {}", get_distance(col1.clone(), col2.clone()));
-    println!("similarity score of two lists: {}", get_similarity_score(col1, col2));
+    println!(
+        "total distance of two lists: {}",
+        get_distance(col1.clone(), col2.clone())
+    );
+    println!(
+        "similarity score of two lists: {}",
+        get_similarity_score(col1, col2)
+    );
 }
